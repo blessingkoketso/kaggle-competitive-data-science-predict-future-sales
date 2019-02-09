@@ -1,4 +1,4 @@
-# Kaggle: Predict Future Sales
+# Kaggle: [Predict Future Sales](https://www.kaggle.com/c/competitive-data-science-predict-future-sales)
 
 + `input` folder stores the data from competition
 + `jupyter` folder stores knernels forked from kaggle or built personaly
