@@ -9,6 +9,8 @@ Use the [kaggle tool](https://github.com/Kaggle/kaggle-api) to download, search 
 
 ## Dowanload from kaggle
 
+Build a `input` folder and enter into the folder. Run the following commands.
+
 ```shell
 kaggle competitions download competitive-data-science-predict-future-sales
 ```
