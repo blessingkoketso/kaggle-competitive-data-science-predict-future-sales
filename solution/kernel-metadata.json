@@ -1,0 +1,13 @@
+{
+  "id": "leewind/extract-features-and-train-by-xgb",
+  "title": "Extract features and train by xgb",
+  "code_file": "predict_future_sales_solution_1_xgb.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": "true",
+  "enable_gpu": "false",
+  "enable_internet": "false",
+  "dataset_sources": [],
+  "competition_sources": [],
+  "kernel_sources": []
+}
