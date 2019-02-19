@@ -72,7 +72,7 @@ def objective(params):
   metric = cross_val_score(model, train_x, train_y, cv=2, scoring=scoring).mean()
   print(metric)
 
-  return metric
+  return -metric
 
 best = fmin(objective, param_space_reg_skl_gbm, algo=partial(tpe.suggest,n_startup_jobs=1), max_evals=100, trials=Trials())
 print(best)
