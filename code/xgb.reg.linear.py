@@ -13,6 +13,7 @@ xgb_num_round_step = 10
 xgb_nthread = 2
 xgb_random_seed = 2019
 xgb_max_evals = 200
+xgb_objective = 'reg:linear'
 
 scoring = 'neg_mean_squared_error'
 
@@ -53,7 +54,7 @@ train_x, train_y = get_train_dataset()
 # xgb训练的超参数
 param_space_reg_xgb_tree = {
   'booster': 'gbtree',
-  'objective': 'reg:linear',
+  'objective': xgb_objective,
   'eta': hp.quniform('eta', 0.01, 1, 0.01),
   'gamma': hp.quniform('gamma', 0, 2, 0.1),
   'min_child_weight': hp.quniform('min_child_weight', 0, 10, 1),
@@ -93,4 +94,6 @@ def objective(params):
 
 best = fmin(objective, param_space_reg_xgb_tree, algo=partial(tpe.suggest,n_startup_jobs=1), max_evals=100, trials=Trials())
 print(best)
+
+best = dict(param_space_reg_xgb_tree, **best)
 print(objective(best))
