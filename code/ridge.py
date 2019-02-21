@@ -55,7 +55,7 @@ param_space_reg_skl_ridge = {
 def objective(params):
 
   print(params)
-  model = Ridge(alpha=param["alpha"], normalize=True)
+  model = Ridge(alpha=params["alpha"], normalize=True)
 
   metric = cross_val_score(model, train_x, train_y, cv=2, scoring=scoring).mean()
   print(metric)
