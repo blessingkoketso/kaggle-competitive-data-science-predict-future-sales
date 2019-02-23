@@ -1,3 +1,5 @@
 xgb.reg.linear: {'colsample_bytree': 0.1, 'eta': 0.1, 'gamma': 0.7000000000000001, 'max_depth': 4.0, 'min_child_weight': 7.0, 'num_round': 190.0, 'subsample': 0.5}
 
 ridge: {'alpha': 9.508074390757756}
+
+gbdt: {'learning_rate': 0.23, 'max_depth': 1.0, 'max_features': 0.05, 'n_estimators': 100.0, 'subsample': 0.5}
