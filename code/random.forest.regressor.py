@@ -2,7 +2,7 @@
 
 import pandas
 
-from sklearn.ensemble import GradientBoostingRegressor
+from sklearn.ensemble import RandomForestRegressor
 from sklearn.model_selection import cross_val_score
 from sklearn.model_selection import train_test_split
 from hyperopt import fmin, tpe, hp, space_eval, rand, Trials, partial, STATUS_OK
@@ -11,6 +11,7 @@ from sklearn.metrics import mean_squared_error
 skl_min_n_estimators = 10
 skl_max_n_estimators = 500
 skl_n_estimators_step = 10
+skl_n_jobs = 2
 
 skl_random_seed = 2019
 gbm_max_evals = 200
@@ -74,18 +75,16 @@ def get_train_dataset():
 def objective(params):
 
     print(params)
-    model = GradientBoostingRegressor(
+    model = RandomForestRegressor(
         n_estimators=int(params['n_estimators']),
         max_features=params['max_features'],
-        learning_rate=params['learning_rate'],
-        max_depth=int(params['max_depth']),
-        subsample=params['subsample'],
+        n_jobs=skl_n_jobs,
         random_state=skl_random_seed,
         verbose=1
     )
 
+    # 没有使用cross_val_score的原因是因为这个速度实在太慢
     # metric = cross_val_score(model, train_x, train_y, cv=2, scoring=scoring).mean()
-    # print(metric)
 
     model.fit(train_x, train_y)
     pred = model.predict(valid_x)
@@ -98,7 +97,7 @@ def score(pred, y):
     '''
     给最后测试结果打分，根据不同的标准，这里需要每次都改
     '''
-
+    
     metric = sqrt(mean_squared_error(y, pred))
     print(metric)
     return metric
@@ -108,38 +107,25 @@ if __name__ == '__main__':
 
     train_x, valid_x, train_y, valid_y = get_train_dataset()
 
-    param_space_reg_skl_gbm = {
+    param_space_reg_skl_rf = {
         'n_estimators': hp.quniform(
             "n_estimators",
             skl_min_n_estimators,
             skl_max_n_estimators,
             skl_n_estimators_step),
-        'learning_rate': hp.quniform(
-            "learning_rate",
-            0.01,
-            0.5,
-            0.01),
         'max_features': hp.quniform(
             "max_features",
             0.05,
             1.0,
             0.05),
-        'max_depth': hp.quniform(
-            'max_depth',
-            1,
-            15,
-            1),
-        'subsample': hp.quniform(
-            'subsample',
-            0.5,
-            1,
-            0.1),
+        'n_jobs': skl_n_jobs,
         'random_state': skl_random_seed,
-        "max_evals": gbm_max_evals}
+        "max_evals": gbm_max_evals,
+    }
 
     best = fmin(
         objective,
-        param_space_reg_skl_gbm,
+        param_space_reg_skl_rf,
         algo=partial(
             tpe.suggest,
             n_startup_jobs=1),
