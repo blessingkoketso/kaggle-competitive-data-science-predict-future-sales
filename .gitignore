@@ -2,3 +2,5 @@ features/**
 jupyter/.ipynb_checkpoints/**
 solution/.ipynb_checkpoints/**
 input/**
+code/catboost_info/**
+code/*.tmp

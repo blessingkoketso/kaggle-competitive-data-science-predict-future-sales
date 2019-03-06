@@ -1,8 +1,20 @@
 ridge:
-{'alpha': 0.12799839602660315}
-0.8530995473085721
+{'alpha': 0.010008959045011015}
+0.9194993393475579
 
 lasso:
-{'alpha': 1.515573333220465e-05}
-0.849174947754161
+{'alpha': 1.0032599490884477e-05}
+0.9256832578526872
 
+en:
+alpha: 0.6989649246986805
+l1_ratio: 0.5
+
+knn:
+{'leaf_size': 50.0, 'n_neighbors': 9.0, 'weights': 'distance'}
+
+extra.tree.regressor
+
+light.gbm
+{'objective': 'regression', 'num_leaves': 40.0, 'learning_rate': 0.23, 'min_child_samples': 21.0, 'feature_fraction': 0.7000000000000001, 'bagging_fraction': 1.0, 'reg_alpha': 0.30000000000000004, 'reg_lambda': 0.1, 'min_child_weight': 3.0, 'max_depth': 9.0, 'n_estimators': 500.0, 'nthread': 2}
+0.7155657121196701

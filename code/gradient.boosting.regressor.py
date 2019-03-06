@@ -1,12 +1,12 @@
 # coding:utf-8
 
 import pandas
+import numpy
 
 from sklearn.ensemble import GradientBoostingRegressor
-from sklearn.model_selection import cross_val_score
 from sklearn.model_selection import train_test_split
 from hyperopt import fmin, tpe, hp, space_eval, rand, Trials, partial, STATUS_OK
-from sklearn.metrics import mean_squared_error
+from ml_metrics import rmse
 
 skl_min_n_estimators = 10
 skl_max_n_estimators = 500
@@ -21,6 +21,11 @@ scoring = 'neg_mean_squared_error'
 def get_train_dataset():
 
     df = pandas.read_pickle('../features/train.pkl')
+
+    # df = df[df.date_block_num < 34]
+    df = df[(df.date_block_num > 30) & (df.date_block_num < 34)]
+
+    df.replace([numpy.inf, -numpy.inf], numpy.nan,inplace=True)
     df = df.fillna(0)
 
     features = features = [
@@ -99,7 +104,7 @@ def score(pred, y):
     给最后测试结果打分，根据不同的标准，这里需要每次都改
     '''
 
-    metric = sqrt(mean_squared_error(y, pred))
+    metric = rmse(y, pred)
     print(metric)
     return metric
 
