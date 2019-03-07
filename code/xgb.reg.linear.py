@@ -30,7 +30,7 @@ def get_train_dataset():
     df.replace([numpy.inf, -numpy.inf], numpy.nan,inplace=True)
     df = df.fillna(0)
 
-    features = features = [
+    features = [
         'date_block_num',
         'shop_id',
         'item_id',
